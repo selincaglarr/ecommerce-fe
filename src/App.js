@@ -5,19 +5,20 @@ import ProductList from "./pages/ProductList";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Cart from "./pages/Cart";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Success from "./pages/Success";
+import { useSelector } from "react-redux";
+import {  Routes, Route } from "react-router-dom";
 
 const App = () => {
-  // const navigate = useNavigate();
-  // const user = true;
+  const user = useSelector((state) => state.user.currentuser);
   return (
     <Routes>
       <Route path="/" element={<Home />}>
-        {" "}
       </Route>
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
       <Route path="cart" element={<Cart />} />
+      <Route path="success" element={<Success />} />
       <Route path="product" element={<Product />}>
         <Route path=":productid" element={<Product />}></Route>
       </Route>
@@ -25,6 +26,11 @@ const App = () => {
         {/* <Route path=":productid" element={<Product/>}></Route> */}
         <Route path=":category" element={<ProductList />}></Route>
       </Route>
+      {user ? (
+        <Route path="/" element={<Home />}></Route>
+      ) : (
+        <Route path="login" element={<Login />}></Route>
+      )}
       <Route
         path="*"
         element={
@@ -32,7 +38,7 @@ const App = () => {
             <p>There's nothing here!</p>
           </main>
         }
-      />{" "}
+      />
     </Routes>
   );
 };

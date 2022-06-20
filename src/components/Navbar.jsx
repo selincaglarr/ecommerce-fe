@@ -4,6 +4,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   height: 60px;
@@ -78,6 +79,11 @@ const MenuItem = styled.div`
 `;
 
 const Navbar = () => {
+  //var olan tüm initial değerleri getirrir sepetteki
+  const cart = useSelector((state) => state.cart);
+  console.log(`CART: ${cart}`);
+  const quantity = useSelector((state) => state.cart.quantity);
+  console.log(`QUANTITY: ${quantity}`);
   return (
     <Container>
       <Wrapper>
@@ -112,12 +118,10 @@ const Navbar = () => {
           </MenuItem>
           <Link to="/cart" style={{ textDecoration: "none" }}>
             <MenuItem>
-              <Badge badgeContent={0} color="primary">
-                {" "}
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartIcon color="action" />
               </Badge>
-
-              <ShoppingCartIcon color="action" />
-            </MenuItem>{" "}
+            </MenuItem>
           </Link>
         </Right>
       </Wrapper>

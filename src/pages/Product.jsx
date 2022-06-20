@@ -7,6 +7,8 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { publicRequest } from "../requestMethods";
 import { useLocation } from "react-router-dom";
+import { addProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div``;
 
@@ -122,6 +124,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
+  const dispatch = useDispatch();
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -131,10 +134,14 @@ const Product = () => {
     }
   };
 
-  const handleClick=()=>{
+  const handleClick = () => {
     //update cart
-    //awios post and we can update cart and create new cart but we will use redux fetching product wew ill fetch directly and updating inside different component
-  }
+    //axios post and we can update cart and create new cart but we will use redux fetching product wew ill fetch directly and updating inside different component
+    // calling our action and passing product and price as payload
+
+    //   !!we have to dispatch this action!! //
+    dispatch(addProduct({ ...product, quantity, color, size }));
+  };
 
   useEffect(() => {
     const getProduct = async () => {
@@ -145,7 +152,7 @@ const Product = () => {
       } catch {}
     };
     getProduct();
-  }, [id]);
+  }, [id]); 
 
   return (
     <Container>
@@ -170,7 +177,10 @@ const Product = () => {
               <FilterTitle>Size</FilterTitle>
               <FilterSize>
                 {product.size?.map((s) => (
-                  <FilterSizeOption key={s} onChange={(e) => setSize(e.target.value)}>
+                  <FilterSizeOption
+                    key={s}
+                    onChange={(e) => setSize(e.target.value)}
+                  >
                     {s}
                   </FilterSizeOption>
                 ))}

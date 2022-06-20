@@ -1,7 +1,7 @@
 export const popularProducts = [
     {
       id:1,
-      img:"https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png",
+      img:"https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png",
       price:"12.5$",
       cat:"woman",
       color:"blue",
@@ -15,7 +15,7 @@ export const popularProducts = [
     },
     {
       id:3,
-      img:"https://www.prada.com/content/dam/pradanux_products/U/UCS/UCS319/1YOTF010O/UCS319_1YOT_F010O_S_182_SLF.png",
+      img:"https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png",
       price:"12.5$",
       cat:"woman",
       color:"blue",

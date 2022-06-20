@@ -65,7 +65,7 @@ const Product = ({ item }) => {
       </Container>
       <Container>
         {" "}
-        <ProductPrice>{item.price}</ProductPrice>
+        <ProductPrice>$ {item.price}</ProductPrice>
       </Container>
       </Link>
       <Container>

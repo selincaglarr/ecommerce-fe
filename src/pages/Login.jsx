@@ -1,5 +1,10 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
+import { useState } from "react";
+import { login } from "../redux/apiCalls";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 
 const Container = styled.div`
@@ -29,7 +34,6 @@ const Wrapper = styled.div`
   width: 25%;
   padding: 20px;
   background-color: white;
-
 `;
 
 const Title = styled.h1`
@@ -53,13 +57,13 @@ const Button = styled.button`
   width: 45%;
   border: none;
   padding: 15px 20px;
-  background-color: #C8B3C2;
+  background-color: #c8b3c2;
   color: white;
   cursor: pointer;
   margin-bottom: 10px;
 `;
 
-const Link = styled.a`
+const LinkP = styled.a`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
@@ -71,7 +75,21 @@ const ButtonContanier = styled.div`
   justify-content: space-between;
 `;
 
+const Error = styled.span`
+  color: red;
+`;
+
 const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    login(dispatch, { username, password });
+  };
+
   return (
     <Container>
       <Navbar />
@@ -79,14 +97,25 @@ const Login = () => {
         <Wrapper>
           <Title>SIGN IN</Title>
           <Form>
-            <Input placeholder="Username" />
-            <Input placeholder="Password" />
+            <Input
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Input
+              placeholder="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {error && <Error>Something went wrong...</Error>}
             <ButtonContanier>
-              <Button>LOGIN</Button>
-              <Button>CREATE A NEW ACCOUNT</Button>
+              <Button onClick={handleClick} disabled={isFetching}>
+                LOGIN
+              </Button>
+              
+              <Button ><Link to="/register" style={{ textDecoration: "none" }}>CREATE A NEW ACCOUNT</Link></Button>
             </ButtonContanier>
 
-            <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
+            <LinkP>DO NOT YOU REMEMBER THE PASSWORD?</LinkP>
           </Form>
         </Wrapper>
       </LoginContainer>
